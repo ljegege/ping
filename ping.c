@@ -469,6 +469,8 @@ main(int argc, char **argv)
 
 	/* Estimate memory eaten by single packet. It is rough estimate.
 	 * Actually, for small datalen's it depends on kernel side a lot. */
+
+    // 查ICMP协议的数据包大小？？？
 	hold = datalen + 8;
 	hold += ((hold+511)/512)*(optlen + 20 + 16 + 64 + 160);
 	sock_setbufs(icmp_sock, hold);

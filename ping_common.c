@@ -547,8 +547,11 @@ void main_loop(int icmp_sock, __u8 *packet, int packlen)
 {
 	char addrbuf[128];
 	char ans_data[4096];
+	// 与writev和readv相关的结构体。可以使一次原子操作读入\写入多个缓冲区：包括length和缓冲区首地址
 	struct iovec iov;
+	// recvmsg和sendmsg相关的结构体。
 	struct msghdr msg;
+	// 发送附属对象时使用
 	struct cmsghdr *c;
 	int cc;
 	int next;
