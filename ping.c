@@ -245,6 +245,7 @@ main(int argc, char **argv)
 		}
 	}
 	while (argc > 0) {
+	    // 第一个还是程序名，只是之前的代码已经加了1.所以argv指向的是输入的第一个参数
 		target = *argv;
 		//printf("%s\n", argv[0]);
 
@@ -262,17 +263,13 @@ main(int argc, char **argv)
 				fprintf(stderr, "ping: unknown host %s\n", target);
 				exit(2);
 			}
-	    // 输出主机信息
-	    if(hp->h_addrtype == AF_INET)
-                printf("protocol:%s\n", "AF_INET");
+            // 输出主机信息
+            if(hp->h_addrtype == AF_INET)
+                    printf("protocol:%s\n", "AF_INET");
             printf("host name:%s\n", hp->h_name);
-            char**p = hp->h_addr_list;
-           // while(p++)
-            {
-                printf("%s\n", *p);
-                printf("%s\n", p[0]);
-                printf("%s\n", p[1]);
-            }
+            char**p = hp->h_aliases;
+            printf("%s\n", *p);
+
 			// 将主机地址和主机名保存下来
 			memcpy(&whereto.sin_addr, hp->h_addr, 4);
 			strncpy(hnamebuf, hp->h_name, sizeof(hnamebuf) - 1);
